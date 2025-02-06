@@ -1,78 +1,93 @@
-# src_htmlphone
 
-> A Vue.js project
-> 
-![image](https://user-images.githubusercontent.com/33089217/115770796-6ee36c80-a3ad-11eb-93ee-e1329c6deb2d.png)
+## ReDesign & Functionality
 
-![image](https://user-images.githubusercontent.com/33089217/115770764-625f1400-a3ad-11eb-82db-87a3607a0d7a.png)
-![image](https://user-images.githubusercontent.com/33089217/115770807-71de5d00-a3ad-11eb-868b-2fd7b4170682.png)
-![image](https://user-images.githubusercontent.com/33089217/115770826-79056b00-a3ad-11eb-88d3-1f9ac2fb42f5.png)
-![image](https://user-images.githubusercontent.com/33089217/115770835-7c98f200-a3ad-11eb-96f7-d22c7817ac88.png)
-![image](https://user-images.githubusercontent.com/33089217/115770846-7f93e280-a3ad-11eb-9b12-47ff88a17614.png)
-![image](https://user-images.githubusercontent.com/33089217/115770853-828ed300-a3ad-11eb-83c9-d95cc99d7e29.png)
-![image](https://user-images.githubusercontent.com/33089217/115770857-84589680-a3ad-11eb-9257-bebc20c44746.png)
+![CI](https://github.com/Re-Ignited-Development/Re-Ignited-Phone/workflows/CI/badge.svg?branch=master)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/re-ignited-development/re-ignited-phone?style=flat-square)](https://github.com/Re-Ignited-Development/Re-Ignited-Phone/releases)
+[![Patreon](https://img.shields.io/badge/patreon-donate-orange.svg)](https://www.patreon.com/reignited)
+[![Discord](https://img.shields.io/discord/308323056592486420.svg?label=Support&logo=discord)](https://discord.gg/9uRJv5v)
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://opensource.org/licenses/gpl-3.0.html)
 
 
-## Build Setup
+<h2  align="center">GCPhone Redesign for FiveM</h2>
 
-``` bash
-# install dependencies
-npm install
+## Latest Release
+* You must download from the release tab or the phone WILL NOT work.
+* ESX 1.1 & ESX 1.2 Download from [Releases](https://github.com/Re-Ignited-Development/Re-Ignited-Phone/releases)
+* Install instructions [Here](https://github.com/Re-Ignited-Development/Re-Ignited-Phone/blob/master/Instructions.md)
 
-# serve with hot reload at localhost:8080
-npm run dev
+## Features
 
-# build for production with minification
-npm run build
+- ZERO Database changes needed to replace [GCPhone V3](https://github.com/manueljlz/gcphone/) or any other public versions.
 
-# build for production and view the bundle analyzer report
-npm run build --report
+- Full contacts list.
+
+- Sending text messages.
+
+- Voice calls.
+
+- Anonymous calling.
+
+- Bank application (With full bank transfers). Link to official new_banking -> https://github.com/NewWayRP/new_banking (For the bank application to work unless you edit yourself.)
+
+- Anonymous Chat application.
+
+- Stock market application (With full functionality soon).
+
+- Customizable cover / screen.
+
+- Add Contacts from recent text messages.
+
+- Add Contacts from recent call history.
+
+- Custom Ringtones with working Volume system in settings.
+
+- Mouse control is back at 100% functionality.
+
+- Screenshots/Selfies with already working upload server.
+
+- Easy installation instructions. Created for us by @ROCKY_southpaw#7777
+
+  
+## Configuration
+
+- You can modify the sounds in \ html \ static \ sound
+
+- You can modify the backgrounds in \ html \ img \ background
+
+- You can modify the phone shell in \ html \ img \ coque
+
+- The shells must be in 1000x500 px format, the screen area for creating backgrounds is centered in size 800 * 400.
+
+- Bank & Stock Market application(s) must be configured according to your scripts.
+
+- See installation.md for more configurations.
+
+- See Images at bottom of page for examples.
+
+## About esx_addons_gcphone
+
+ESX Addons GCPhone has been merged INTO the gcphone files for ease of use. **You are no longer required to add `ensure esx_addons_gcphone` to your server.cfg.**
+
+Please put `ensure gcphone` before jobs.
+
+Example :
+```
+ensure mysql-async
+
+ensure essentialmode (For esx 1.1)
+ensure esplugin_mysql
+ensure es_extended
+
+ensure gcphone
+ensure screenshot-basic
+
+ensure esx_policejob
+ensure esx_ambulancejob
+ensure esx_job3
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+### [Credits](https://github.com/Re-Ignited-Development/Re-Ignited-Phone/blob/master/AUTHORS)
 
-**Functions**
-``` bash
-Contact list
-Send SMS
-Calls
-Anonymous calls
-Bank application with bank transfers
-Reddit app
-Bag Application
-Notes application
-Selection of ringtones
-Fixed bug numeric keyboard script
-Added different cases for iphone 11
-Added new background images
-Renewed the complete aesthetics of the gcphone as well as its dimensions
-```
-**Instructions for use**
-``` bash
-To put the gcphone to work on your server you must follow these steps
+## Screenshots
 
-1º Copy all the files from the resources folder and add them to the folder called gcphone on your server
-
-2º For the bank application to work, you need the script on your NewBanking server, since it uses this script
-
-3º In order to make use of sending messages to public services, you must have the following script on your server and configure it for operation
-
-4º If once the gcphone is inserted, it does not load the images, try to delete the cache of the server and your FiveM and it will be ready for operation
-```
-**Requirements**
-``` bash
-Official website esx_addons_gcphone -> https://github.com/N3MTV/gcphone/tree/master/resources/esx_addons_gcphone
-Official website new_banking -> https://github.com/NewWayRP/new_banking
-Credits
-
-ElBichop (Owner gcphone v3) https://www.linkedin.com/in/manuel-jim%C3%A9nez-l%C3%B3pez-205420158/
-
-Paty Blue (Designer) @psasfer
-
-Original GCPhone by Gannon https://github.com/N3MTV/gcphone
-
-License
-GNU v3
-
-Manuel (ElBichop)
-```
+<img src="https://i.imgur.com/5eRB79a.png" width="45%"></img> <img src="https://i.imgur.com/CakgFn3.png" width="45%"></img> <img src="https://i.imgur.com/tRhczfK.jpg" width="45%"></img> <img src="https://i.imgur.com/YILmCWo.jpg" width="45%"></img> <img src="https://i.imgur.com/1MUATnT.png" width="45%"></img> <img src="https://i.imgur.com/QtthwvP.png" width="45%"></img> <img src="https://i.imgur.com/Se2zwwK.png" width="45%"></img> <img src="https://i.imgur.com/aRUZTmP.png" width="45%"></img> <img src="https://i.imgur.com/iWbZ0lX.png" width="45%"></img> <img src="https://i.imgur.com/g5xdnXG.png" width="45%"></img> <img src="https://i.imgur.com/Giqet8j.png" width="45%"></img> <img src="https://i.imgur.com/FpzA6Mg.png" width="45%"></img> <img src="https://i.imgur.com/8dZTX5d.png" width="45%"></img> <img src="https://i.imgur.com/YDkWvx5.png" width="45%"></img> <img src="https://i.imgur.com/7GkMKaA.png" width="45%"></img> <img src="https://i.imgur.com/rS17u60.png" width="45%"></img> <img src="https://i.imgur.com/W3Cs4WM.png" width="45%"></img> <img src="https://i.imgur.com/WSUkwmE.png" width="45%"></img>
