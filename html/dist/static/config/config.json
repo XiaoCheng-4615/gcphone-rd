@@ -67,7 +67,8 @@
     "Red": "red.png",
     "Mint": "s8.png",
     "Blue": "blue.png",
-    "Iphone 11": "no_cover.png"
+    "Iphone 11": "no_cover.png",
+    "Iphone 14pro" : "iphone14pro.png"
   },
 
   "sonido": {
@@ -93,7 +94,7 @@
 
   "serviceCall": [{
       "display": "Police",
-      "icon": "/html/static/img/icons_app/policia.png",
+      "icon": "/static/img/icons_app/policia.png",
       "subMenu": [{
           "title": "Send a message",
           "eventName": "esx_addons_gcphone:call",
@@ -113,7 +114,7 @@
     {
       "display": "Ambulance",
       "backgroundColor": "red",
-      "icon": "/html/static/img/icons_app/lsfd.png",
+      "icon": "/static/img/icons_app/lsfd.png",
       "subMenu": [{
         "title": "Send a message",
         "eventName": "esx_addons_gcphone:call",
@@ -139,13 +140,13 @@
       "number": "ambulance",
       "display": "Ambulance",
       "backgroundColor": "red",
-      "icon": "/html/static/img/icons_app/lsfd.png"
+      "icon": "/static/img/icons_app/lsfd.png"
     },
     {
       "number": "police",
       "display": "Police",
       "backgroundColor": "blue",
-      "icon": "/html/static/img/icons_app/policia.png"
+      "icon": "/static/img/icons_app/policia.png"
     },
     {
       "number": "taxi",
@@ -161,7 +162,7 @@
       "de_DE__name": "Twitter",
       "pl_PL__name": "Twitter",
       "es_ES__name": "Twitter",
-      "icons": "/html/static/img/icons_app/twitter.png",
+      "icons": "/static/img/icons_app/twitter.png",
       "routeName": "twitter.splash",
       "inHomePage": false
     },
@@ -173,7 +174,7 @@
       "de_DE__name": "Telefon",
       "pl_PL__name": "Telefon",
       "es_ES__name": "Teléfono",
-      "icons": "/html/static/img/icons_app/call.png",
+      "icons": "/static/img/icons_app/call.png",
       "routeName": "appels",
       "inHomePage": true
     },
@@ -187,7 +188,7 @@
       "de_DE__name": "Kontakte",
       "pl_PL__name": "Kontakty",
       "es_ES__name": "Contactos",
-      "icons": "/html/static/img/icons_app/contacts.png",
+      "icons": "/static/img/icons_app/contacts.png",
       "routeName": "contacts",
       "inHomePage": false
     },
@@ -199,7 +200,7 @@
       "de_DE__name": "Nachrichten",
       "pl_PL__name": "Wiadomości",
       "es_ES__name": "Mensajes",
-      "icons": "/html/static/img/icons_app/sms.png",
+      "icons": "/static/img/icons_app/sms.png",
       "routeName": "messages",
       "inHomePage": true,
       "puceRef": "nbMessagesUnread"
@@ -212,7 +213,7 @@
       "de_DE__name": "Einstellungen",
       "pl_PL__name": "Ustawienia",
       "es_ES__name": "Ajustes",
-      "icons": "/html/static/img/icons_app/settings.png",
+      "icons": "/static/img/icons_app/settings.png",
       "routeName": "parametre",
       "inHomePage": false
     },
@@ -225,7 +226,7 @@
       "de_DE__name": "Wallet",
       "pl_PL__name": "Wallet",
       "es_ES__name": "Wallet",
-      "icons": "/html/static/img/icons_app/banco.png",
+      "icons": "/static/img/icons_app/banco.png",
       "routeName": "bank",
       "inHomePage": false
     },
@@ -236,7 +237,7 @@
       "en_US__name": "Stock Market",
       "de_DE__name": "Börse",
       "es_ES__name": "Bolsa",
-      "icons": "/html/static/img/icons_app/bourse1.png",
+      "icons": "/static/img/icons_app/bourse1.png",
       "routeName": "bourse",
       "enabled": true
     },
@@ -248,7 +249,7 @@
       "de_DE__name": "Kamera",
       "pl_PL__name": "Kamera",
       "es_ES__name": "Cámara",
-      "icons": "/html/static/img/icons_app/photo.png",
+      "icons": "/static/img/icons_app/photo.png",
       "routeName": "photo"
     },
     {
@@ -258,7 +259,7 @@
       "de_DE__name": "Reddit",
       "pl_PL__name": "Reddit",
       "es_ES__name": "Reddit",
-      "icons": "/html/static/img/icons_app/reddit.png",
+      "icons": "/static/img/icons_app/reddit.png",
       "routeName": "tchat"
     },
     {
@@ -269,12 +270,12 @@
       "pl_PL__name": "Notatki ",
       "es_ES__name": "Notas ",
       "routeName": "notes",
-      "icons": "/html/static/img/icons_app/notes.png"
+      "icons": "/static/img/icons_app/notes.png"
       
     },
     {
       "name": "9GAG",
-      "icons": "/html/static/img/icons_app/9gag.png",
+      "icons": "/static/img/icons_app/9gag.png",
       "routeName": "9gag"
     }
   ],
@@ -329,7 +330,6 @@
       "APP_MESSAGE_ZOOM_IMG": "Zoom",
       "APP_MESSAGE_DELETE": "Effacer",
       "APP_MESSAGE_MESS_NUMBER": "Numero ",
-      "APP_MESSAGE_SAVE_CONTACT": "Enregistrer le contact",
       "APP_MESSAGE_MESS_SMS": "SMS",
       "APP_MESSAGE_MESS_CALL": "Appeler",
       "APP_MESSAGE_MESS_COPY": "Copier",
@@ -408,7 +408,6 @@
       "CONFIRM": "Accept",
       "CANCEL": "Abort",
       "APP_CONFIG_TITLE": "Settings",
-      "APP_MESSAGE_SAVE_CONTACT": "Save contact",
       "APP_CONFIG_MY_MUNBER": "My number",
       "APP_CONFIG_WALLPAPER": "Wallpaper",
       "APP_CONFIG_CASE": "Telephone cover",
@@ -518,7 +517,6 @@
       "PHONE_WARNING_MESSAGE": "Achtung!",
       "PHONE_WARNING_MESSAGE_MESS": "Nachrichten",
       "CONFIRM": "Akzeptieren",
-      "APP_MESSAGE_SAVE_CONTACT": "Kontakt speichern",
       "CANCEL": "Abbrechen",
       "APP_CONFIG_TITLE": "Einstellungen",
       "APP_CONFIG_MY_MUNBER": "Meine Nummer",
@@ -639,7 +637,6 @@
       "CANCEL": "przerwać",
       "APP_CONFIG_TITLE": "parametr",
       "APP_CONFIG_MY_MUNBER": "Mój numer",
-      "APP_MESSAGE_SAVE_CONTACT": "Zapisz kontakt",
       "APP_CONFIG_WALLPAPER": "tapeta",
       "APP_CONFIG_MOUSE_SUPPORT": "Controle souris",
       "APP_CONFIG_CASE": "Pokrywa telefoniczna",
@@ -749,7 +746,6 @@
       "PHONE_WARNING_MESSAGE_MESS": "noticias",
       "CONFIRM": "Aceptar",
       "CANCEL": "Cancelar",
-      "APP_MESSAGE_SAVE_CONTACT": "Guardar contacto",
       "APP_CONFIG_TITLE": "Ajustes",
       "APP_CONFIG_MY_MUNBER": "Mi número",
       "APP_CONFIG_WALLPAPER": "Fondo pantalla",
@@ -865,7 +861,6 @@
       "PHONE_WARNING_MESSAGE": "připomínka",
       "PHONE_WARNING_MESSAGE_MESS": "zprávy",
       "CONFIRM": "Přijmout",
-      "APP_MESSAGE_SAVE_CONTACT": "Ruani kontaktin",
       "CANCEL": "Zrušit",
       "APP_CONFIG_TITLE": "nastavení",
       "APP_CONFIG_MY_MUNBER": "Mé číslo",

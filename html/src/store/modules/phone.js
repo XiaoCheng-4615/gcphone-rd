@@ -55,8 +55,8 @@ const getters = {
         return config.coque_default
       }
       return {
-        label: 'playa',
-        value: 'playa.jpg'
+        label: 's8',
+        value: 's8.png'
       }
     }
     return coque

@@ -48,12 +48,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       filename: config.build.index, // 输出到 config.build.index 所指定的路径（通常是 dist/index.html）
       template: 'index.html',         // 使用项目根目录下的 index.html 作为模板
       inject: true,
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeAttributeQuotes: true
-      },
-      chunksSortMode: 'dependency'
+      minify: false,
     }),
     // 提取第三方库至 vendor.js
     new webpack.optimize.CommonsChunkPlugin({
