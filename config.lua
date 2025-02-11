@@ -34,3 +34,10 @@ Config.NoPhoneWarning = false -- If true, the player is warned when trying to op
 -- Optional Discord Logging
 Config.UseTwitterLogging = true -- Set the Discord webhook in twitter.lua line 284
 
+
+
+Config.JobNotify = {
+  { job = 'police', label = '警察通知'},
+  { job = 'ambulance', label = '警察通知'},
+
+}

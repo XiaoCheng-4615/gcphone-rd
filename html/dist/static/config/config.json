@@ -67,8 +67,7 @@
     "Red": "red.png",
     "Mint": "s8.png",
     "Blue": "blue.png",
-    "Iphone 11": "no_cover.png",
-    "Iphone 14pro" : "iphone14pro.png"
+    "Iphone 11": "no_cover.png"
   },
 
   "sonido": {
@@ -94,7 +93,7 @@
 
   "serviceCall": [{
       "display": "Police",
-      "icon": "/static/img/icons_app/policia.png",
+      "icon": "/html/dist/static/img/icons_app/policia.png",
       "subMenu": [{
           "title": "Send a message",
           "eventName": "esx_addons_gcphone:call",
@@ -114,7 +113,7 @@
     {
       "display": "Ambulance",
       "backgroundColor": "red",
-      "icon": "/static/img/icons_app/lsfd.png",
+      "icon": "/html/dist/static/img/icons_app/lsfd.png",
       "subMenu": [{
         "title": "Send a message",
         "eventName": "esx_addons_gcphone:call",
@@ -126,6 +125,19 @@
     {
       "display": "Taxi",
       "backgroundColor": "yellow",
+      "icon": "/html/dist/static/img/icons_app/lsfd.png",
+      "subMenu": [{
+        "title": "Send a message",
+        "eventName": "esx_addons_gcphone:call",
+        "type": {
+          "number": "taxi"
+        }
+      }]
+    },
+    {
+      "display": "Mechanic",
+      "backgroundColor": "red",
+      "icon": "https://i.pinimg.com/originals/cb/49/b8/cb49b8cbdf96d32e22e434f856649e5d.png",
       "subMenu": [{
         "title": "Send a message",
         "eventName": "esx_addons_gcphone:call",
@@ -140,18 +152,19 @@
       "number": "ambulance",
       "display": "Ambulance",
       "backgroundColor": "red",
-      "icon": "/static/img/icons_app/lsfd.png"
+      "icon": "/html/dist/static/img/icons_app/lsfd.png"
     },
     {
       "number": "police",
       "display": "Police",
       "backgroundColor": "blue",
-      "icon": "/static/img/icons_app/policia.png"
+      "icon": "/html/dist/static/img/icons_app/policia.png"
     },
     {
       "number": "taxi",
       "display": "Taxi",
-      "backgroundColor": "yellow"
+      "backgroundColor": "yellow",
+      "icon": "/html/dist/static/img/icons_app/policia.png"
     }
   ],
 
@@ -174,7 +187,7 @@
       "de_DE__name": "Telefon",
       "pl_PL__name": "Telefon",
       "es_ES__name": "Teléfono",
-      "icons": "/static/img/icons_app/call.png",
+      "icons": "call.png",
       "routeName": "appels",
       "inHomePage": true
     },
@@ -200,7 +213,7 @@
       "de_DE__name": "Nachrichten",
       "pl_PL__name": "Wiadomości",
       "es_ES__name": "Mensajes",
-      "icons": "/static/img/icons_app/sms.png",
+      "icons": "sms.png",
       "routeName": "messages",
       "inHomePage": true,
       "puceRef": "nbMessagesUnread"
@@ -237,7 +250,7 @@
       "en_US__name": "Stock Market",
       "de_DE__name": "Börse",
       "es_ES__name": "Bolsa",
-      "icons": "/static/img/icons_app/bourse1.png",
+      "icons": "html/dist/static/img/icons_app/bourse1.png",
       "routeName": "bourse",
       "enabled": true
     },
@@ -330,6 +343,7 @@
       "APP_MESSAGE_ZOOM_IMG": "Zoom",
       "APP_MESSAGE_DELETE": "Effacer",
       "APP_MESSAGE_MESS_NUMBER": "Numero ",
+      "APP_MESSAGE_SAVE_CONTACT": "Enregistrer le contact",
       "APP_MESSAGE_MESS_SMS": "SMS",
       "APP_MESSAGE_MESS_CALL": "Appeler",
       "APP_MESSAGE_MESS_COPY": "Copier",
@@ -403,11 +417,13 @@
     },
     "en_US": {
       "NAME": "English",
-      "PHONE_WARNING_MESSAGE": "memento",
+      "PHONE_WARNING_MESSAGE": "WARNING",
       "PHONE_WARNING_MESSAGE_MESS": "Messages",
       "CONFIRM": "Accept",
       "CANCEL": "Abort",
+      "APP_MESSAGE_MESS_NUMBER": "Number",
       "APP_CONFIG_TITLE": "Settings",
+      "APP_MESSAGE_SAVE_CONTACT": "Save contact",
       "APP_CONFIG_MY_MUNBER": "My number",
       "APP_CONFIG_WALLPAPER": "Wallpaper",
       "APP_CONFIG_CASE": "Telephone cover",
@@ -415,7 +431,6 @@
       "APP_CONFIG_ZOOM": "Zoom",
       "APP_CONFIG_VOLUME": "Volume",
       "APP_CONFIG_LANGUAGE": "Language",
-      "APP_PHONE_CALL_ANONYMOUS": "Anonymous call",
       "APP_CONFIG_MOUSE_SUPPORT": "Mouse control",
       "APP_CONFIG_RESET": "format",
       "APP_CONFIG_RESET_CONFIRM": "DELETE ALL",
@@ -427,6 +442,10 @@
       "APP_PHONE_MENU_RECENTS": "Newest",
       "APP_PHONE_MENU_CONTACTS": "contacts",
       "APP_PHONE_ENTER_NUMBER": "Enter a number",
+      "APP_PHONE_NUMBER_UNKNOWN": "hidden",
+      "APP_PHONE_NUMBER_HIDDEN": "hidden",
+      "APP_PHONE_CALL_IGNORE": "Ignore",
+      "APP_PHONE_CALL_ANONYMOUS": "Anonymous call",
       "APP_BANK_TITLE": "bench",
       "APP_BOURSE_TITLE": "stock exchange",
       "APP_CONTACT_TITLE": "contact details",
@@ -442,10 +461,14 @@
       "APP_MESSAGE_ERASE_CONVERSATION": "Delete the call",
       "APP_MESSAGE_ERASE_ALL_CONVERSATIONS": "Delete all conv.",
       "APP_MESSAGE_SEND_GPS": "Send GPS coupling",
+	  "APP_MESSAGE_SEND_PHOTO": "Send Photo",
       "APP_MESSAGE_SET_GPS": "GPS position",
       "APP_MESSAGE_ZOOM_IMG": "Enlarge",
       "APP_MESSAGE_DELETE": "Delete",
       "APP_MESSAGE_SMS": "text message",
+      "APP_MESSAGE_MESS_NUMBER": "Number ",
+      "APP_MESSAGE_MESS_SMS": "SMS",
+      "APP_MESSAGE_MESS_CALL": "Call",
       "APP_MESSAGE_CONTACT_TITLE": "contacts",
       "APP_MESSAGE_CONTRACT_ENTER_NUMBER": "Enter a number",
       "APP_MESSAGE_PLACEHOLDER_ENTER_MESSAGE": "Send a message",
@@ -517,6 +540,7 @@
       "PHONE_WARNING_MESSAGE": "Achtung!",
       "PHONE_WARNING_MESSAGE_MESS": "Nachrichten",
       "CONFIRM": "Akzeptieren",
+      "APP_MESSAGE_SAVE_CONTACT": "Kontakt speichern",
       "CANCEL": "Abbrechen",
       "APP_CONFIG_TITLE": "Einstellungen",
       "APP_CONFIG_MY_MUNBER": "Meine Nummer",
@@ -637,6 +661,7 @@
       "CANCEL": "przerwać",
       "APP_CONFIG_TITLE": "parametr",
       "APP_CONFIG_MY_MUNBER": "Mój numer",
+      "APP_MESSAGE_SAVE_CONTACT": "Zapisz kontakt",
       "APP_CONFIG_WALLPAPER": "tapeta",
       "APP_CONFIG_MOUSE_SUPPORT": "Controle souris",
       "APP_CONFIG_CASE": "Pokrywa telefoniczna",
@@ -746,6 +771,7 @@
       "PHONE_WARNING_MESSAGE_MESS": "noticias",
       "CONFIRM": "Aceptar",
       "CANCEL": "Cancelar",
+      "APP_MESSAGE_SAVE_CONTACT": "Guardar contacto",
       "APP_CONFIG_TITLE": "Ajustes",
       "APP_CONFIG_MY_MUNBER": "Mi número",
       "APP_CONFIG_WALLPAPER": "Fondo pantalla",
@@ -861,6 +887,7 @@
       "PHONE_WARNING_MESSAGE": "připomínka",
       "PHONE_WARNING_MESSAGE_MESS": "zprávy",
       "CONFIRM": "Přijmout",
+      "APP_MESSAGE_SAVE_CONTACT": "Ruani kontaktin",
       "CANCEL": "Zrušit",
       "APP_CONFIG_TITLE": "nastavení",
       "APP_CONFIG_MY_MUNBER": "Mé číslo",

@@ -83,16 +83,12 @@ end)
 --  Utils
 --====================================================================================
 function getSourceFromIdentifier(identifier, cb)
-    TriggerEvent("es:getPlayers", function(users)
-        for k , user in pairs(users) do
-        
-            if (user.getIdentifier ~= nil and user.getIdentifier() == identifier) or (user.identifier == identifier) then
-                cb(k)
-                return
-            end
-        end
-    end)
-    cb(nil)
+    local players = ESX.GetExtendedPlayers('identifier', identifier)
+    if #players > 0 then
+        cb(players[1].source)
+    else
+        cb(nil)
+    end
 end
 
 function getNumberPhone(identifier)
@@ -116,29 +112,23 @@ end
 
 
 function getPlayerID(source)
-    local identifiers = GetPlayerIdentifiers(source)
-    local player = getIdentifiant(identifiers)
-    return player
+    local xPlayer = ESX.GetPlayerFromId(source)
+    return xPlayer.identifier
 end
-function getIdentifiant(id)
-    for _, v in ipairs(id) do
-        return v
-    end
-end
+
 
 
 function getOrGeneratePhoneNumber (sourcePlayer, identifier, cb)
-    local sourcePlayer = sourcePlayer
-    local identifier = identifier
+    local sourcePlayer = ESX.GetPlayerFromId(sourcePlayer)
     local myPhoneNumber = getNumberPhone(identifier)
     if myPhoneNumber == '0' or myPhoneNumber == nil then
         repeat
             myPhoneNumber = getPhoneRandomNumber()
             local id = getIdentifierByPhoneNumber(myPhoneNumber)
         until id == nil
-        MySQL.Async.insert("UPDATE users SET phone_number = @myPhoneNumber WHERE identifier = @identifier", { 
+        MySQL.Async.execute("UPDATE users SET phone_number = @myPhoneNumber WHERE identifier = @identifier", { 
             ['@myPhoneNumber'] = myPhoneNumber,
-            ['@identifier'] = identifier
+            ['@identifier'] = sourcePlayer.identifier
         }, function ()
             cb(myPhoneNumber)
         end)
@@ -235,6 +225,7 @@ end
 
 RegisterServerEvent('gcPhone:_internalAddMessage')
 AddEventHandler('gcPhone:_internalAddMessage', function(transmitter, receiver, message, owner, cb)
+    print(transmitter, receiver, message, owner)
     cb(_internalAddMessage(transmitter, receiver, message, owner))
 end)
 
@@ -324,8 +315,9 @@ end
 RegisterServerEvent('gcPhone:sendMessage')
 AddEventHandler('gcPhone:sendMessage', function(phoneNumber, message, gpsData)
     local sourcePlayer = tonumber(source)
-    local identifier = getPlayerID(source)
-    addMessage(sourcePlayer, identifier, phoneNumber, message, gpsData)
+    local xPlayer = ESX.GetPlayerFromId(sourcePlayer)
+    print(phoneNumber, message)
+    addMessage(sourcePlayer, xPlayer.identifier, phoneNumber, message, gpsData)
 end)
 
 RegisterServerEvent('gcPhone:deleteMessage')
@@ -479,7 +471,7 @@ AddEventHandler('gcPhone:internal_startCall', function(source, phone_number, rtc
     
     if is_valid == true then
         getSourceFromIdentifier(destPlayer, function (srcTo)
-            if srcTo ~= nill then
+            if srcTo ~= nil then
                 AppelsEnCours[indexCall].receiver_src = srcTo
                 TriggerEvent('gcPhone:addCall', AppelsEnCours[indexCall])
                 TriggerClientEvent('gcPhone:waitingCall', sourcePlayer, AppelsEnCours[indexCall], true)
@@ -595,7 +587,23 @@ end)
 --====================================================================================
 --  OnLoad
 --====================================================================================
-AddEventHandler('es:playerLoaded',function(source)
+
+ESX.RegisterCommand({'phone1', 'phone2'}, 'user', function(xPlayer, args, showError)
+    local sourcePlayer = tonumber(xPlayer.source)
+    local identifier = getPlayerID(xPlayer.source)
+    local num = getNumberPhone(xPlayer.source)
+    
+    getOrGeneratePhoneNumber(sourcePlayer, identifier, function (myPhoneNumber)
+        TriggerClientEvent('gcPhone:myPhoneNumber', sourcePlayer, myPhoneNumber)
+        TriggerClientEvent('gcPhone:contactList', sourcePlayer, getContacts(identifier))
+        TriggerClientEvent('gcPhone:allMessage', sourcePlayer, getMessages(identifier))
+        TriggerClientEvent('gcPhone:getBourse', sourcePlayer, getBourse())
+        sendHistoriqueCall(sourcePlayer, num)
+    end)
+end, false, {help = _U('command_clear')})
+
+
+AddEventHandler('esx:playerLoaded',function(source)
     local sourcePlayer = tonumber(source)
     local identifier = getPlayerID(source)
     local num = getNumberPhone(source)

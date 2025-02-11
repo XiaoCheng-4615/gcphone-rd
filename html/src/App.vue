@@ -1,6 +1,8 @@
 <template>
   <div style="height: 100vh; width: 100vw;" @contextmenu="closePhone">
     <notification />
+    <div v-if="show === true && tempoHide === false" :style="{zoom: zoom}" @contextmenu.stop>
+
       <div class="phone_wrapper">
         
         <div v-if="coque" class="phone_coque" :style="{backgroundImage: 'url(./static/img/coque/' + coque.value + ')'}"></div>
@@ -8,6 +10,7 @@
           <router-view></router-view>
         </div>
       </div>
+    </div>
   </div>
 </template>
 
@@ -25,7 +28,7 @@ export default {
   data: function () {
     return {
       soundCall: null,
-      phoneVisible: true
+      phoneVisible: false
 
     }
   },

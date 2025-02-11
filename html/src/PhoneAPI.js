@@ -6,7 +6,10 @@ import emoji from './emoji.json'
 const keyEmoji = Object.keys(emoji)
 
 let USE_VOICE_RTC = false
-const BASE_URL = 'http://gcphone/html/dist/'
+const BASE_URL = 'http://gcphone/'
+
+
+
 
 /* eslint-disable camelcase */
 class PhoneAPI {
@@ -26,6 +29,7 @@ class PhoneAPI {
 
   async post (method, data) {
     const ndata = data === undefined ? '{}' : JSON.stringify(data)
+    console.log(BASE_URL,method,ndata)
     const response = await window.jQuery.post(BASE_URL + method, ndata)
     return JSON.parse(response)
   }
@@ -123,21 +127,20 @@ class PhoneAPI {
     store.dispatch('resetAppels')
     return this.post('deleteALL')
   }
-  async getConfig () {
+  async getConfig() {
     if (this.config === null) {
-      // Update the path to match the location of your config.json
-      const response = await window.jQuery.get('/html/dist/static/config/config.json')  // Adjusted path
-      if (process.env.NODE_ENV === 'production') {
-        this.config = JSON.parse(response)
-      } else {
-        this.config = response
+      try {
+        // jQuery.get() 会自动解析 JSON
+        this.config = await window.jQuery.get('./static/config/config.json')
+        
+        if (this.config.useWebRTCVocal === true) {
+          this.voiceRTC = new VoiceRTC(this.config.RTCConfig)
+          USE_VOICE_RTC = true
+        }
+        this.notififyUseRTC(this.config.useWebRTCVocal)
+      } catch (error) {
+        console.error('配置加载失败:', error)
       }
-  
-      if (this.config.useWebRTCVocal === true) {
-        this.voiceRTC = new VoiceRTC(this.config.RTCConfig)
-        USE_VOICE_RTC = true
-      }
-      this.notififyUseRTC(this.config.useWebRTCVocal)
     }
     return this.config
   }

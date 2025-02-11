@@ -2,7 +2,7 @@ import Vue from 'vue'
 import PhoneAPI from './../../PhoneAPI'
 
 const state = {
-  show: true,
+  show: process.env.NODE_ENV !== 'production',
   tempoHide: false,
   myPhoneNumber: '###-####',
   background: JSON.parse(window.localStorage['gc_background'] || null),
@@ -92,8 +92,12 @@ const getters = {
       app.intlName = app[keyName] || app.name
       return app
     }),
-  AppsHome: (state, getters) => getters.Apps.filter(app => app.inHomePage === true),
-  availableLanguages ({ config }) {
+    AppsHome: (state, getters) => {
+      const appsHome = getters.Apps.filter(app => app.inHomePage === true);
+      console.log('AppsHome:', appsHome); // 打印過濾後的結果
+      return appsHome;
+    },
+    availableLanguages ({ config }) {
     const langKey = Object.keys(config.language)
     const AvailableLanguage = {}
     for (const key of langKey) {

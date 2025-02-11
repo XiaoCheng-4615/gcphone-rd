@@ -80,7 +80,7 @@ Citizen.CreateThread(function()
   while true do
     Citizen.Wait(0)
     if takePhoto ~= true then
-      if IsControlJustPressed(1, KeyOpenClose) then
+      if IsControlJustPressed(1, 288) then
         hasPhone(function (hasPhone)
           if hasPhone == true then
             TooglePhone()

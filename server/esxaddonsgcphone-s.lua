@@ -1,19 +1,17 @@
-
 local PhoneNumbers        = {}
 
--- PhoneNumbers = {
---   ambulance = {
---     type  = "ambulance",
---     sources = {
---        ['1'] = true
---     }
---   }
--- }
-
 ESX = exports["es_extended"]:getSharedObject()
+if not ESX then
+    print("錯誤：無法獲取 ESX 共享物件")
+end
+
+for k,v in pairs(Config.JobNotify) do
+  TriggerEvent('esx_phone:registerNumber', v.job, v.label, true, true)
+end
 
 
 function notifyAlertSMS (number, alert, listSrc)
+  
   if PhoneNumbers[number] ~= nil then
     local messText = alert.message
     if (messText == '%posrealtime%') then
@@ -25,25 +23,35 @@ function notifyAlertSMS (number, alert, listSrc)
     end
     for k, _ in pairs(listSrc) do
       local targetPlayer = tonumber(k)
-      getPhoneNumber(targetPlayer, function (n)
-        if n ~= nil then
-          TriggerEvent('gcPhone:_internalAddMessage', number, n, mess, 0, function (smsMess)
-            TriggerClientEvent('gcPhone:receiveMessage', targetPlayer, smsMess)
-            if alert.source then
-              if messText == 'GPS Live Position' then
-                local duration = Config.ShareRealtimeGPSJobTimer * 60000 --Config Time (Default = 10 minutes)
-                TriggerClientEvent('gcPhone:receiveLivePosition', targetPlayer, alert.source, duration, alert.numero, 1)
+      if targetPlayer then
+        getPhoneNumber(targetPlayer, function (n)
+          print(targetPlayer,'notifyAlertSMS')
+          if n ~= nil then
+            TriggerEvent('gcPhone:_internalAddMessage', number, n, mess, 0, function (smsMess)
+              TriggerClientEvent('gcPhone:receiveMessage', targetPlayer, smsMess)
+              if alert.source then
+                if messText == 'GPS Live Position' then
+                  local duration = Config.ShareRealtimeGPSJobTimer * 60000 --Config Time (Default = 10 minutes)
+                  TriggerClientEvent('gcPhone:receiveLivePosition', targetPlayer, alert.source, duration, alert.numero, 1)
+                end
               end
-           end
-          end)
-        end
-      end)
+            end)
+          end
+        end)
+      else
+        print("錯誤：無效的目標玩家 ID")
+      end
     end
   end
 end
 
 AddEventHandler('esx_phone:registerNumber', function(number, type, sharePos, hasDispatch, hideNumber, hidePosIfAnon)
-  print('= INFO = Registered number for ' .. number .. ' => ' .. type)
+    -- print('註冊電話號碼：', json.encode({
+    --     number = number,
+    --     type = type,
+    --     sharePos = sharePos,
+    --     hasDispatch = hasDispatch
+    -- }))
 	local hideNumber    = hideNumber    or false
 	local hidePosIfAnon = hidePosIfAnon or false
 
@@ -56,28 +64,54 @@ end)
 
 
 AddEventHandler('esx:setJob', function(source, job, lastJob)
-  if PhoneNumbers[lastJob.name] ~= nil then
-    TriggerEvent('esx_addons_gcphone:removeSource', lastJob.name, source)
-  end
+    local src = tonumber(source)
+    if not src then return end
 
-  if PhoneNumbers[job.name] ~= nil then
-    TriggerEvent('esx_addons_gcphone:addSource', job.name, source)
-  end
+    -- 移除舊職業的電話來源
+    if PhoneNumbers[lastJob.name] then
+        RemovePhoneSource(lastJob.name, src)
+    end
+
+    -- 添加新職業的電話來源
+    if PhoneNumbers[job.name] then
+        AddPhoneSource(job.name, src)
+    end
 end)
 
+-- 添加電話來源的函數
+function AddPhoneSource(number, source)
+    if not PhoneNumbers[number] then return end
+    PhoneNumbers[number].sources[tostring(source)] = true
+    TriggerEvent('esx_addons_gcphone:sourceUpdated', number, source, true)
+end
+
+-- 移除電話來源的函數
+function RemovePhoneSource(number, source)
+    if not PhoneNumbers[number] then return end
+    PhoneNumbers[number].sources[tostring(source)] = nil
+    TriggerEvent('esx_addons_gcphone:sourceUpdated', number, source, false)
+end
+
+-- 保持這些事件處理程序用於向後兼容
 AddEventHandler('esx_addons_gcphone:addSource', function(number, source)
-	PhoneNumbers[number].sources[tostring(source)] = true
+    AddPhoneSource(number, source)
 end)
 
 AddEventHandler('esx_addons_gcphone:removeSource', function(number, source)
-	PhoneNumbers[number].sources[tostring(source)] = nil
+    RemovePhoneSource(number, source)
 end)
 
 RegisterServerEvent('gcPhone:sendMessage')
 AddEventHandler('gcPhone:sendMessage', function(number, message)
+    print('發送消息：', json.encode({
+        number = number,
+        message = message,
+        source = source
+    }))
     local sourcePlayer = tonumber(source)
     if PhoneNumbers[number] ~= nil then
       getPhoneNumber(source, function (phone) 
+        print('gcPhone:sendMessage',phone)
         notifyAlertSMS(number, {
           message = message,
           numero = phone,
@@ -92,6 +126,7 @@ AddEventHandler('esx_addons_gcphone:startCall', function (number, message, coord
   local sourcePlayer = tonumber(source)
   if PhoneNumbers[number] ~= nil then
     getPhoneNumber(source, function (phone) 
+      print('esx_addons_gcphone:startCall')
       notifyAlertSMS(number, {
         message = message,
         coords = coords,
@@ -133,15 +168,25 @@ AddEventHandler('esx:playerDropped', function(source)
 end)
 
 
-function getPhoneNumber (source, callback) 
-  local xPlayer = ESX.GetPlayerFromId(source)
-  if xPlayer == nil then
-    callback(nil)
-  end
+function getPhoneNumber(source, callback) 
+    local xPlayer = ESX.GetPlayerFromId(source)
+    print('獲取電話號碼：', json.encode({
+        source = source,
+        hasPlayer = xPlayer ~= nil
+    }))
+    if xPlayer == nil then
+      callback(nil)
+      return
+    end
+  
   MySQL.Async.fetchAll('SELECT * FROM users WHERE identifier = @identifier',{
     ['@identifier'] = xPlayer.identifier
   }, function(result)
-    callback(result[1].phone_number)
+    if result and result[1] then
+      callback(result[1].phone_number)
+    else
+      callback(nil)
+    end
   end)
 end
 
@@ -152,12 +197,14 @@ AddEventHandler('esx_phone:send', function(number, message, _, coords)
   local source = source
   if PhoneNumbers[number] ~= nil then
     getPhoneNumber(source, function (phone) 
+      print('esx_phone:send')
       notifyAlertSMS(number, {
         message = message,
         coords = coords,
         numero = phone,
       }, PhoneNumbers[number].sources)
     end)
+    print(number)
   else
     -- print('esx_phone:send | Appels sur un service non enregistre => numero : ' .. number)
   end
