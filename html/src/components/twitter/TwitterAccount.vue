@@ -262,7 +262,7 @@ export default {
     async setLocalAccountAvartar ($event) {
       try {
         const data = await Modal.CreateTextModal({
-          text: this.twitterAvatarUrl || 'https://i.imgur.com/'
+          text: this.twitterAvatarUrl || 'https://r2.fivemanage.com/X0T9jFQHrQgx9B7coTrBf/images/question-sign(1).png'
         })
         this.localAccount.avatarUrl = data.text
       } catch (e) {}
@@ -270,7 +270,7 @@ export default {
     async onPressChangeAvartar () {
       try {
         const data = await Modal.CreateTextModal({
-          text: this.twitterAvatarUrl || 'https://i.imgur.com/'
+          text: this.twitterAvatarUrl || 'https://r2.fivemanage.com/X0T9jFQHrQgx9B7coTrBf/images/question-sign(1).png'
         })
         this.twitterSetAvatar({avatarUrl: data.text})
       } catch (e) {}

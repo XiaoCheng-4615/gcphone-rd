@@ -38,6 +38,6 @@ Config.UseTwitterLogging = true -- Set the Discord webhook in twitter.lua line 2
 
 Config.JobNotify = {
   { job = 'police', label = '警察通知'},
-  { job = 'ambulance', label = '警察通知'},
+  { job = 'ambulance', label = '醫護通知'},
 
 }

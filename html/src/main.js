@@ -5,7 +5,6 @@ import store from './store'
 import VueTimeago from './TimeAgo'
 import PhoneAPI from './PhoneAPI'
 import Notification from './Notification'
-
 import AutoFocus from './directives/autofocus'
 
 Vue.use(VueTimeago)

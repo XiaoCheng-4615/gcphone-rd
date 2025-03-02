@@ -1,17 +1,14 @@
 import store from '@/store'
 import VoiceRTC from './VoiceRCT'
 import Vue from 'vue'
-
 import emoji from './emoji.json'
-const keyEmoji = Object.keys(emoji)
 
+const keyEmoji = Object.keys(emoji)
 let USE_VOICE_RTC = false
 const BASE_URL = 'http://gcphone/'
+const FIVEMANAGE_API_URL = 'https://api.fivemanage.com/api/image'
+const FIVEMANAGE_API_KEY = 'vTUNd6OqUCvlBrMoM7s3OnfJteim6bZ8' // 替換為你的 FiveManage API 密鑰
 
-
-
-
-/* eslint-disable camelcase */
 class PhoneAPI {
   constructor () {
     window.addEventListener('message', (event) => {
@@ -27,11 +24,34 @@ class PhoneAPI {
     this.soundList = {}
   }
 
+  // 通用的 POST 方法，用於與 gcphone 後端通信
   async post (method, data) {
     const ndata = data === undefined ? '{}' : JSON.stringify(data)
-    console.log(BASE_URL,method,ndata)
+    console.log(BASE_URL, method, ndata)
     const response = await window.jQuery.post(BASE_URL + method, ndata)
     return JSON.parse(response)
+  }
+
+  // FiveManage 專用的圖片上傳方法
+  async uploadToFiveManage (formData) {
+    try {
+      const response = await fetch(FIVEMANAGE_API_URL, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${FIVEMANAGE_API_KEY}`
+        },
+        body: formData
+      })
+      const result = await response.json()
+      if (result.url) {
+        return { url: result.url } // 返回圖片 URL
+      } else {
+        throw new Error('Failed to upload image to FiveManage')
+      }
+    } catch (error) {
+      console.error('FiveManage upload error:', error)
+      return null
+    }
   }
 
   async log (...data) {
@@ -51,19 +71,19 @@ class PhoneAPI {
 
   // === Gestion des messages
   async sendMessage (phoneNumber, message) {
-    return this.post('sendMessage', {phoneNumber, message})
+    return this.post('sendMessage', { phoneNumber, message })
   }
   async deleteMessage (id) {
-    return this.post('deleteMessage', {id})
+    return this.post('deleteMessage', { id })
   }
   async deleteMessagesNumber (number) {
-    return this.post('deleteMessageNumber', {number})
+    return this.post('deleteMessageNumber', { number })
   }
   async deleteAllMessages () {
     return this.post('deleteAllMessage')
   }
   async setMessageRead (number) {
-    return this.post('setReadMessageNumber', {number})
+    return this.post('setReadMessageNumber', { number })
   }
 
   // === Gestion des contacts
@@ -93,19 +113,49 @@ class PhoneAPI {
     return this.post('useMouse', useMouse)
   }
   async setGPS (x, y) {
-    return this.post('setGPS', {x, y})
+    return this.post('setGPS', { x, y })
   }
+
+  // 修改為使用 FiveManage 上傳圖片
   async takePhoto () {
     store.commit('SET_TEMPO_HIDE', true)
-    const data = await this.post('takePhoto', { url: this.config.fileUploadService_Url, field: this.config.fileUploadService_Field })
-    store.commit('SET_TEMPO_HIDE', false)
-    return data
+    try {
+      // 假設後端返回圖片數據（例如 base64 或 blob），這裡模擬調用後端
+      const photoData = await this.post('takePhoto') // 後端需返回圖片數據
+      if (photoData && photoData.data) {
+        const formData = new FormData()
+        const blob = this.base64ToBlob(photoData.data, 'image/png')
+        formData.append('image', blob, 'photo.png')
+
+        const result = await this.uploadToFiveManage(formData)
+        store.commit('SET_TEMPO_HIDE', false)
+        return result // 返回 FiveManage 的圖片 URL
+      } else {
+        throw new Error('No photo data returned from server')
+      }
+    } catch (error) {
+      console.error('Take photo error:', error)
+      store.commit('SET_TEMPO_HIDE', false)
+      return null
+    }
   }
+
+  // 輔助方法：將 base64 轉為 Blob
+  base64ToBlob (base64, mime) {
+    const byteString = atob(base64.split(',')[1])
+    const ab = new ArrayBuffer(byteString.length)
+    const ia = new Uint8Array(ab)
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i)
+    }
+    return new Blob([ab], { type: mime })
+  }
+
   async getReponseText (data) {
     if (process.env.NODE_ENV === 'production') {
       return this.post('reponseText', data || {})
     } else {
-      return {text: window.prompt()}
+      return { text: window.prompt() }
     }
   }
 
@@ -114,7 +164,7 @@ class PhoneAPI {
   }
 
   async callEvent (eventName, data) {
-    return this.post('callEvent', {eventName, data})
+    return this.post('callEvent', { eventName, data })
   }
   async deleteALL () {
     localStorage.clear()
@@ -127,12 +177,11 @@ class PhoneAPI {
     store.dispatch('resetAppels')
     return this.post('deleteALL')
   }
-  async getConfig() {
+
+  async getConfig () {
     if (this.config === null) {
       try {
-        // jQuery.get() 会自动解析 JSON
         this.config = await window.jQuery.get('./static/config/config.json')
-        
         if (this.config.useWebRTCVocal === true) {
           this.voiceRTC = new VoiceRTC(this.config.RTCConfig)
           USE_VOICE_RTC = true
@@ -144,7 +193,6 @@ class PhoneAPI {
     }
     return this.config
   }
-  
 
   async onsetEnableApp (data) {
     store.dispatch('setEnableApp', data)
@@ -272,13 +320,13 @@ class PhoneAPI {
 
   // === Twitter
   twitter_login (username, password) {
-    this.post('twitter_login', {username, password})
+    this.post('twitter_login', { username, password })
   }
   twitter_changePassword (username, password, newPassword) {
-    this.post('twitter_changePassword', {username, password, newPassword})
+    this.post('twitter_changePassword', { username, password, newPassword })
   }
   twitter_createAccount (username, password, avatarUrl) {
-    this.post('twitter_createAccount', {username, password, avatarUrl})
+    this.post('twitter_createAccount', { username, password, avatarUrl })
   }
   twitter_postTweet (username, password, message) {
     this.post('twitter_postTweet', { username, password, message })
@@ -356,7 +404,6 @@ class PhoneAPI {
       delete this.soundList[sound]
     }
   }
-
 }
 
 const instance = new PhoneAPI()

@@ -13,7 +13,8 @@
                 v-bind:key="but.name" 
 
                 v-bind:class="{ select: key === currentSelect}"
-                v-bind:style="{backgroundImage: 'url(' + but.icons +')'}"
+                v-bind:style="{backgroundImage: 'url(' + '/html/dist/static/img/icons_app/' + but.icons + ')'}"
+                
                 @click.stop="openApp(but)"
               >
                 {{but.intlName}}

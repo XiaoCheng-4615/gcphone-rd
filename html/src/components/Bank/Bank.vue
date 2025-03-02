@@ -4,7 +4,7 @@
     
     <div class='elements'>
       <InfoBare style="width: 326px;top: -207px;margin-left: -17px;"/>
-      <img class="logo_maze" src="/static/img/app_bank/fleeca_tar.png">
+      <img class="logo_maze" src="/html/dist/static/img/app_bank/fleeca_tar.png">
       <div class="num-tarj" >
         <span  class="moneyTitle">{{ IntlString('APP_BANK_TITLE_BALANCE') }}</span>
         <span class="moneyTitle">{{ bankAmontFormat }}$</span>
@@ -30,7 +30,7 @@
       </div>
       
     </div>
-    <img class="logo_tarj_end" src="/static/img/app_bank/tarjetas.png">
+    <img class="logo_tarj_end" src="/html/dist/static/img/app_bank/tarjetas.png">
   </div>
 </template>
 

@@ -175,7 +175,7 @@
       "de_DE__name": "Twitter",
       "pl_PL__name": "Twitter",
       "es_ES__name": "Twitter",
-      "icons": "/static/img/icons_app/twitter.png",
+      "icons": "twitter.png",
       "routeName": "twitter.splash",
       "inHomePage": false
     },
@@ -201,7 +201,7 @@
       "de_DE__name": "Kontakte",
       "pl_PL__name": "Kontakty",
       "es_ES__name": "Contactos",
-      "icons": "/static/img/icons_app/contacts.png",
+      "icons": "contacts.png",
       "routeName": "contacts",
       "inHomePage": false
     },
@@ -226,7 +226,7 @@
       "de_DE__name": "Einstellungen",
       "pl_PL__name": "Ustawienia",
       "es_ES__name": "Ajustes",
-      "icons": "/static/img/icons_app/settings.png",
+      "icons": "settings.png",
       "routeName": "parametre",
       "inHomePage": false
     },
@@ -239,7 +239,7 @@
       "de_DE__name": "Wallet",
       "pl_PL__name": "Wallet",
       "es_ES__name": "Wallet",
-      "icons": "/static/img/icons_app/banco.png",
+      "icons": "banco.png",
       "routeName": "bank",
       "inHomePage": false
     },
@@ -250,7 +250,7 @@
       "en_US__name": "Stock Market",
       "de_DE__name": "Börse",
       "es_ES__name": "Bolsa",
-      "icons": "html/dist/static/img/icons_app/bourse1.png",
+      "icons": "bourse1.png",
       "routeName": "bourse",
       "enabled": true
     },
@@ -262,7 +262,7 @@
       "de_DE__name": "Kamera",
       "pl_PL__name": "Kamera",
       "es_ES__name": "Cámara",
-      "icons": "/static/img/icons_app/photo.png",
+      "icons": "photo.png",
       "routeName": "photo"
     },
     {
@@ -272,7 +272,7 @@
       "de_DE__name": "Reddit",
       "pl_PL__name": "Reddit",
       "es_ES__name": "Reddit",
-      "icons": "/static/img/icons_app/reddit.png",
+      "icons": "reddit.png",
       "routeName": "tchat"
     },
     {
@@ -283,12 +283,12 @@
       "pl_PL__name": "Notatki ",
       "es_ES__name": "Notas ",
       "routeName": "notes",
-      "icons": "/static/img/icons_app/notes.png"
+      "icons": "notes.png"
       
     },
     {
       "name": "9GAG",
-      "icons": "/static/img/icons_app/9gag.png",
+      "icons": "9gag.png",
       "routeName": "9gag"
     }
   ],

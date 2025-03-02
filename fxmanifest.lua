@@ -48,9 +48,9 @@ files {
 
 client_script {
     '@es_extended/locale.lua',
+	"config.lua",
     'locales/*.lua',
 	"client/esxaddonsgcphone-c.lua",
-	"config.lua",
 	"client/animation.lua",
 	"client/client.lua",
 
@@ -62,10 +62,10 @@ client_script {
 
 server_script {
     '@es_extended/locale.lua',
+	"config.lua",
     'locales/*.lua',
 	'@mysql-async/lib/MySQL.lua',
 	"server/esxaddonsgcphone-s.lua",
-	"config.lua",
 	"server/server.lua",
 
 	"server/app_tchat.lua",
